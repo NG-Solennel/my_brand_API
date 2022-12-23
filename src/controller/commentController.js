@@ -7,6 +7,7 @@ export class CommentController {
         name: res.locals.name,
         email: res.locals.email,
         message,
+        date: new Date(),
       };
       const response = await CommentServices.createComment(
         comment,
@@ -34,16 +35,19 @@ export class CommentController {
         req.params.bid,
         req.params.cid
       );
-      res.status(200).json({ comment });
+      if (comment == "Not found") {
+        return res.status(404).json({ Error: "Comment not found" });
+      }
+      return res.status(200).json({ comment });
     } catch (error) {
       console.log(error);
-      res.status(404).json({ error: error });
+      return res.status(404).json({ error: error });
     }
   }
 
   static async deleteComment(req, res) {
     try {
-      await commentServices.deleteComment(req.params.bid, req.params.cid);
+      await CommentServices.deleteComment(req.params.bid, req.params.cid);
       res.status(200).json({ message: "Comment Deleted" });
     } catch (error) {
       console.log(error);

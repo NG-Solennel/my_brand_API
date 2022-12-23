@@ -5,6 +5,7 @@ const messageSchema = mongoose.Schema({
   description: String,
   hiring: { type: Boolean, default: false },
   message: String,
+  date: Date,
 });
 
 const Message = mongoose.model("Message", messageSchema);
