@@ -2,21 +2,17 @@ import { CommentServices } from "../services/commentService";
 export class CommentController {
   static async createComment(req, res) {
     try {
-      const { name, email, message } = req.body;
+      const { message } = req.body;
       const comment = {
-        name,
-        email,
+        name: res.locals.name,
+        email: res.locals.email,
         message,
       };
       const response = await CommentServices.createComment(
         comment,
         req.params.id
       );
-      if (response.type == "error") {
-        res.status(400).json({ error: response.data });
-      } else {
-        res.status(200).json({ CommentedBlog: response.data });
-      }
+      res.status(200).json({ CommentedBlog: response.data });
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: error });

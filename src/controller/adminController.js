@@ -1,8 +1,7 @@
-import User from "../model/User";
-import { UserServices } from "../services/userService";
+import { AdminServices } from "../services/adminService";
 
-export class UserController {
-  static async addUser(req, res) {
+export class AdminController {
+  static async addAdmin(req, res) {
     try {
       const { email, password, name } = req.body;
       const credentials = {
@@ -10,7 +9,7 @@ export class UserController {
         email,
         password,
       };
-      const response = await UserServices.addUser(credentials);
+      const response = await AdminServices.addAdmin(credentials);
       if (response.type == "error") {
         return res.status(400).json({ error: response.data });
       } else if (response == "Email exists") {
@@ -31,7 +30,7 @@ export class UserController {
         email,
         password,
       };
-      const response = await UserServices.login(data);
+      const response = await AdminServices.login(data);
       if (response.type == "Email incorrect") {
         return res.status(400).json({ message: "Email or password incorrect" });
       } else if (response.type == "Password incorrect") {
@@ -50,9 +49,9 @@ export class UserController {
     }
   }
 
-  static async getUsers(req, res) {
+  static async getAdmin(req, res) {
     try {
-      const users = await UserServices.getUsers();
+      const users = await AdminServices.getAdmins();
       return res.status(200).json({ users });
     } catch (error) {
       console.log(error);
