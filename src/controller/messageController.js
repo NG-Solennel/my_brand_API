@@ -13,11 +13,8 @@ export class MessageController {
         message,
       };
       const response = await MessageServices.sendMessage(data);
-      if (response.type == "error") {
-        return res.status(400).json({ ValidationError: response.data });
-      } else {
         return res.status(200).json({ MessageSent: response.data });
-      }
+    
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: error });

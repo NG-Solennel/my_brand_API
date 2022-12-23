@@ -2,6 +2,7 @@ import express from "express";
 import { UserController } from "../../controller/userController";
 import passport from "passport";
 import isLogged from "../../middleware/auth/googleMid";
+import checkAdmin from "../../middleware/auth/checkAdmin";
 import {
   userValidation,
   loginValidation,
@@ -32,7 +33,9 @@ route.get(
 
 route.get(
   "",
+  checkAdmin,
   passport.authenticate("jwt", { session: false }),
   UserController.getUsers
 );
+
 export default route;
