@@ -7,7 +7,11 @@ import session from "express-session";
 import passport from "passport";
 import passportGoogle from "./middleware/auth/passportGoogle";
 import passportSetup from "./middleware/auth/passport";
+import swaggerUI from "swagger-ui-express";
+import specs from "./swagger";
+
 const app = express();
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.use(session({ secret: "andela", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -17,7 +21,7 @@ app.use(morgan("dev"));
 const port = process.env.PORT || 5000;
 try {
   mongoose.set("strictQuery", false);
-  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
+  mongoose.connect(process.env.DB_URL_REMOTE, { useNewUrlParser: true });
   console.log("Database connected!!");
 
   app.use("/api/v1", routes);
