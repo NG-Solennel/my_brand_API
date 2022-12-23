@@ -7,6 +7,18 @@ import { AdminController } from "../../controller/adminController";
 import passport from "passport";
 import checkAdmin from "../../middleware/auth/checkAdmin";
 const route = express.Router();
+/**
+ * @swagger
+ * tags:
+ * - name: Blogs
+ *   description: Everything about interacting with blogs
+ * - name: Contact Messages
+ *   description: Accessing messages sent on the contact page
+ * - name: Users
+ *   description: Operations about user
+ * - name: Admin
+ *   description: Adding an administrator
+ */
 
 route.post(
   "/signup",
