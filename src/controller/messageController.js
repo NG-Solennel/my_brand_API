@@ -11,13 +11,13 @@ export class MessageController {
         description,
         hiring,
         message,
+        date: new Date(),
       };
       const response = await MessageServices.sendMessage(data);
-        return res.status(200).json({ MessageSent: response.data });
-    
+      return res.status(200).json({ MessageSent: response.data });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: error });
+      return res.status(500).json({ error: error });
     }
   }
 
@@ -25,13 +25,13 @@ export class MessageController {
     try {
       const messages = await MessageServices.viewMessages();
       if (messages.length == 0) {
-        res.status(404).json({ Error: "No messages yet" });
+        return res.status(404).json({ Error: "No messages yet" });
       } else {
-        res.status(200).json({ messages });
+        return res.status(200).json({ messages });
       }
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: error });
+      return res.status(500).json({ error: error });
     }
   }
 
@@ -39,13 +39,13 @@ export class MessageController {
     try {
       const message = await MessageServices.viewSingleMessage(req.params.id);
       if (message == null) {
-        res.status(404).json({ Error: "Message not found" });
+        return res.status(404).json({ Error: "Message not found" });
       } else {
-        res.status(200).json({ message });
+        return res.status(200).json({ message });
       }
     } catch (error) {
       console.log(error);
-      res.status(404).json({ error: error });
+      return res.status(500).json({ error: error });
     }
   }
 

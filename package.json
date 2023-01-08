@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./src/app.js",
   "scripts": {
     "build": "babel src -d dist",
     "dev": "better-npm-run dev",
-    "test": "jest --collect-coverage --watchAll"
+    "test": "jest --collect-coverage --detectOpenHandles --forceExit && coveralls < coverage/lcov.info"
   },
   "betterScripts": {
     "dev": {
@@ -15,9 +15,13 @@
   "keywords": [],
   "author": "Solennel",
   "license": "ISC",
+  "jest": {
+    "testTimeout": 15000
+  },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/preset-env": "^7.20.2",
+    "coveralls": "^3.1.1",
     "jest": "^29.3.1",
     "supertest": "^6.3.3"
   },
@@ -41,6 +45,8 @@
     "morgan": "^1.10.0",
     "passport": "^0.6.0",
     "passport-google-oauth2": "^0.2.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "swagger-jsdoc": "^6.2.7",
+    "swagger-ui-express": "^4.6.0"
   }
 }

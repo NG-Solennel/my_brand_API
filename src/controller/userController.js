@@ -1,4 +1,3 @@
-import User from "../model/User";
 import { UserServices } from "../services/userService";
 
 export class UserController {
@@ -11,12 +10,12 @@ export class UserController {
         password,
       };
       const response = await UserServices.addUser(credentials);
-      if (response.type == "error") {
-        return res.status(400).json({ error: response.data });
-      } else if (response == "Email exists") {
+      if (response == "Email exists") {
         return res.status(409).json({ message: response });
       } else {
-        return res.status(200).json({ credentials: response.data });
+        return res
+          .status(200)
+          .json({ message: "User was signed up successfully!!" });
       }
     } catch (error) {
       console.log(error);
@@ -36,8 +35,6 @@ export class UserController {
         return res.status(400).json({ message: "Email or password incorrect" });
       } else if (response.type == "Password incorrect") {
         return res.status(400).json({ message: "Email or password incorrect" });
-      } else if (response.type == "error") {
-        return res.status(400).json({ error: response.data });
       } else if (response.type == "response") {
         res.header("auth-token", response.data);
         return res
