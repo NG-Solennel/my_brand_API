@@ -16,6 +16,9 @@ export class CommentServices {
   static async viewSingleComment(bid, cid) {
     const blog = await Blog.findOne({ _id: bid });
     const comment = blog.comments.find((comment) => comment.id == cid);
+    if (comment == null) {
+      return "Not found";
+    }
     return comment;
   }
   static async deleteComment(bid, cid) {

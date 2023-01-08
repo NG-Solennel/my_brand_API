@@ -2,13 +2,14 @@ import Message from "../model/Message";
 import validateMessage from "../validations/message_validations";
 export class MessageServices {
   static async sendMessage(data) {
-    const { name, email, description, hiring, message } = data;
+    const { name, email, description, hiring, message, date } = data;
     const m = new Message({
       name,
       email,
       description,
       hiring,
       message,
+      date,
     });
     await m.save();
     return { type: "response", data: m };
