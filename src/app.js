@@ -10,6 +10,7 @@ import passportSetup from "./middleware/auth/passport";
 import swaggerUI from "swagger-ui-express";
 import specs from "./swagger";
 
+
 const app = express();
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.use(session({ secret: "andela", resave: false, saveUninitialized: true }));

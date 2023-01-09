@@ -7,6 +7,7 @@ import { AdminController } from "../../controller/adminController";
 import passport from "passport";
 import checkAdmin from "../../middleware/auth/checkAdmin";
 const route = express.Router();
+
 /**
  * @swagger
  * tags:
