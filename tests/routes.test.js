@@ -240,15 +240,6 @@ test("Should return a 200 as all data is written right and the authorization tok
   expect(response.statusCode).toBe(200);
 });
 
-// test("deleting blog should return 200 with token", async () => {
-//   const blog = await Blog.findOne();
-//   const id = blog._id;
-//   const response = await request(app)
-//     .delete("/api/v1/blogs/" + id)
-//     .set("Authorization", token)
-//     .send();
-//   expect(response.statusCode).toBe(200);
-// });
 test("Posting comment with token to provide 200", async () => {
   const blog = await Blog.findOne({ content: "Blog content 5" });
   const id = blog._id;

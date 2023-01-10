@@ -8,40 +8,7 @@ import passport from "passport";
 import passportGoogle from "./middleware/auth/passportGoogle";
 import passportSetup from "./middleware/auth/passport";
 import swaggerUI from "swagger-ui-express";
-import swaggerJSDoc from "swagger-jsdoc";
-
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Swagger Doc - Solennel Brand Version 1",
-      version: "1.0.0",
-      description: "An API for a professional branding portfolio website",
-    },
-    servers: [
-      {
-        url: "http://localhost:3000/api/v1",
-      },
-    ],
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "JWT",
-        },
-      },
-    },
-    security: [
-      {
-        bearerAuth: [],
-      },
-    ],
-  },
-  apis: ["./src/routes/api/*.js"],
-};
-
-const specs = swaggerJSDoc(options);
+import specs from "./swagger";
 
 const app = express();
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
