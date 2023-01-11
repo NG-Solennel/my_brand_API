@@ -127,6 +127,9 @@ route.get(
  *           description: No messages found
  *         '500':
  *           description: Internal server error
+ *       security:
+ *         - {}
+ *         - bearerAuth: []
  */
 
 route.get(
@@ -168,6 +171,9 @@ route.get(
  *         description: No message found
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 route.delete(
   "/:id",
@@ -206,5 +212,8 @@ route.delete(
  *                       example: Message deleted
  *         '500':
  *           description: Internal server error
+ *       security:
+ *         - {}
+ *         - bearerAuth: []
  */
 export default route;
