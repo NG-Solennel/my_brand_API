@@ -119,6 +119,9 @@ route.post(
  *         description: Invalid input
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 route.get("/", BlogController.viewBlogs);
 /**
@@ -201,6 +204,9 @@ route.delete(
  *         description: Blog with that Id not found
  *       '401':
  *         description: Not Authorized
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 route.put(
@@ -259,6 +265,9 @@ route.put(
  *         description: Invalid input
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 export default route;

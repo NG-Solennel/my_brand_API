@@ -80,6 +80,9 @@ route.post(
  *                    $ref: '#/components/schemas/Blog'
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 route.get("/:id/comments", CommentController.viewComments);
@@ -153,6 +156,9 @@ route.get("/:bid/comments/:cid", CommentController.viewSingleComment);
  *                  $ref: '#/components/schemas/Comment'
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 route.delete(
@@ -199,5 +205,8 @@ route.delete(
  *                    default: Comment Deleted
  *        '500':
  *          description: Internal server error
+ *      security:
+ *        - {}
+ *        - bearerAuth: []
  */
 export default route;

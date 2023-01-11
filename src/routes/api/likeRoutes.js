@@ -34,6 +34,9 @@ route.post("/:id/like", likeAuth, LikeController.like);
  *                   $ref: '#/components/schemas/Blog'
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 export default route;
