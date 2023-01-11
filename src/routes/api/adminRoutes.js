@@ -82,6 +82,9 @@ route.post(
  *                     default: "Email exists"
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 route.get(
@@ -113,5 +116,8 @@ route.get(
  *                       $ref: '#/components/schemas/User'
  *       "500":
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 export default route;

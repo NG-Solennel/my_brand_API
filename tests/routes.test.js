@@ -1,6 +1,7 @@
 import app from "../src/app";
 import request from "supertest";
 import Blog from "../src/model/Blog";
+import Admin from "../src/model/Admin";
 import User from "../src/model/User";
 import Message from "../src/model/Message";
 import { imgUrl, token } from "./resources";
@@ -351,7 +352,18 @@ test("Posting a blog to provide 200 ", async () => {
     });
   expect(response.statusCode).toBe(200);
 });
-
+test("Deleting a blog to provide 200", async () => {
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
+  console.log(blog);
+  const id = blog._id;
+  const rdel = await request(app)
+    .delete("/api/v1/blogs/" + id)
+    .set("Authorization", token)
+    .send();
+  expect(rdel.statusCode).toBe(200);
+});
 test("Viewing all messages should provide 200", async () => {
   const response = await request(app)
     .get("/api/v1/messages")
@@ -366,4 +378,11 @@ test("Viewing all administrators should provide 200", async () => {
     .set("Authorization", token)
     .send();
   expect(response.statusCode).toBe(200);
+});
+
+test("get blog server errors", async () => {
+  const mockMethod = jest.fn().mockRejectedValue(new Error("Database Error"));
+  jest.spyOn(Blog, "find").mockImplementation(mockMethod);
+  const err1 = await request(app).get("/api/v1/blogs");
+  expect(err1.statusCode).toBe(500);
 });

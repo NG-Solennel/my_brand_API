@@ -96,6 +96,9 @@ route.post(
  *                     default: "Email exists"
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 route.post("/login", loginValidation, UserController.login);
@@ -191,6 +194,9 @@ route.get(
  *                       $ref: '#/components/schemas/User'
  *       "500":
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 export default route;
