@@ -3,11 +3,10 @@ import { AdminServices } from "../services/adminService";
 export class AdminController {
   static async addAdmin(req, res) {
     try {
-      const { email, password, name } = req.body;
+      const { email, name } = req.body;
       const credentials = {
         name,
         email,
-        password,
       };
       const response = await AdminServices.addAdmin(credentials);
       if (response == "Email exists") {

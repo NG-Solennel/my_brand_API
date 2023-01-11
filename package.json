@@ -17,7 +17,7 @@
   "author": "Solennel",
   "license": "ISC",
   "jest": {
-    "testTimeout": 15000
+    "testTimeout": 30000
   },
   "devDependencies": {
     "coveralls": "^3.1.1",

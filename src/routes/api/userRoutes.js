@@ -36,12 +36,7 @@ const route = express.Router();
  *            example: 0
  */
 
-route.post(
-  "/signup",
-  userValidation,
-  passport.authenticate("jwt", { session: false }),
-  UserController.addUser
-);
+route.post("/signup", userValidation, UserController.addUser);
 /**
  * @swagger
  * /users/signup:
@@ -75,30 +70,13 @@ route.post(
  *                 - password
  *     responses:
  *       "200":
- *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   message:
- *                     type: string
- *                     default: "User was signed up successfully!!"
+ *           description: Success
+ *       '401':
+ *         description: Unauthorized
  *       "409":
  *           description: Conflict
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   message:
- *                     type: string
- *                     default: "Email exists"
  *       '500':
  *         description: Internal server error
- *     security:
- *       - {}
- *       - bearerAuth: []
  */
 
 route.post("/login", loginValidation, UserController.login);
@@ -131,20 +109,9 @@ route.post("/login", loginValidation, UserController.login);
  *                 - password
  *     responses:
  *       "200":
- *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   name:
- *                     type: string
- *                     example: Solennel
- *                   token:
- *                     type: string
- *                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTE0ZTQ0ZjA4Y2U5YzBmOTA2ODlmZSIsImVtYWlsIjoibmdzb2xlbm5lbEBnbWFpbC5jb20iLCJuYW1lIjoiU29sZW5uZWwiLCJpYXQiOjE2NzMwOTM0OTJ9.0H_ur93ZV3egRVI2el4iOdCSfDAy-Uwh_owEMLx9uWk
- *     '500':
- *        description: Internal server error
+ *           description: Success
+ *       '500':
+ *           description: Internal server error
  */
 
 // route.get(
@@ -182,16 +149,8 @@ route.get(
  *     responses:
  *       "200":
  *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                   users:
- *                     type: array
- *                     minItems: 2
- *                     items:
- *                       $ref: '#/components/schemas/User'
+ *       '401':
+ *         description: Unauthorized
  *       "500":
  *         description: Internal server error
  *     security:

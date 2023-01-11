@@ -83,14 +83,7 @@ route.post("/", messageValidation, MessageController.sendMessage);
  *       required: true
  *     responses:
  *       '200':
- *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 MessageSent:
- *                    $ref: '#/components/schemas/Message'
+ *         description: Success
  *       '500':
  *         description: Internal server error
  */
@@ -112,17 +105,7 @@ route.get(
  *       operationId: getMessages
  *       responses:
  *         '200':
- *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   messages:
- *                     type: array
- *                     minItems: 2
- *                     items:
- *                       $ref: '#/components/schemas/Message'
+ *           description: Success
  *         '404':
  *           description: No messages found
  *         '500':
@@ -156,17 +139,12 @@ route.get(
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *     responses:
  *       '200':
- *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                    $ref: '#/components/schemas/Message'
+ *         description: Success
+ *       '401':
+ *         description: Unauthorized
  *       '404':
  *         description: No message found
  *       '500':
@@ -198,18 +176,12 @@ route.delete(
  *           schema:
  *             type: string
  *             format: objectId
- *             example: 63a567bc2a672df0a5192bb8
+ *             example: id
  *       responses:
  *         '200':
- *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   message:
- *                       type: string
- *                       example: Message deleted
+ *           description: Success
+ *       '401':
+ *         description: Unauthorized
  *         '500':
  *           description: Internal server error
  *       security:

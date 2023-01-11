@@ -5,7 +5,6 @@ import "dotenv/config";
 import routes from "./routes";
 import session from "express-session";
 import passport from "passport";
-import passportGoogle from "./middleware/auth/passportGoogle";
 import passportSetup from "./middleware/auth/passport";
 import swaggerUI from "swagger-ui-express";
 import specs from "./swagger";

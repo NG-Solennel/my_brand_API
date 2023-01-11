@@ -7,12 +7,9 @@ export class AdminServices {
     if (emailExist) {
       return "Email exists";
     } else {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(data.password, salt);
       const newAdmin = new Admin({
         name: data.name,
         email: data.email,
-        password: hashedPassword,
       });
       await newAdmin.save();
       return { type: "response", data: "Admin sign up was successfull!!" };

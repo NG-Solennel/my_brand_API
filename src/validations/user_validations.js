@@ -13,7 +13,12 @@ const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
+const adminSchema = Joi.object({
+  name: Joi.string().min(3).required(),
+  email: Joi.string().email().required(),
+});
 
 const validateUser = validator(userSchema);
 const validateLogin = validator(loginSchema);
-export { validateLogin, validateUser };
+const validateAdmin = validator(adminSchema);
+export { validateLogin, validateUser, validateAdmin };

@@ -21,17 +21,12 @@ route.post("/:id/like", likeAuth, LikeController.like);
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *     responses:
  *       '200':
- *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 likedBlog:
- *                   $ref: '#/components/schemas/Blog'
+ *         description: Success
+ *       '401':
+ *         description: Unauthorized (Needs token)
  *       '500':
  *         description: Internal server error
  *     security:

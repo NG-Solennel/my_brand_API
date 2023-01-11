@@ -4,6 +4,7 @@ import validateComment from "../../validations/comment_validations";
 import {
   validateUser,
   validateLogin,
+  validateAdmin,
 } from "../../validations/user_validations";
 
 const loginValidation = (req, res, next) => {
@@ -20,6 +21,19 @@ const loginValidation = (req, res, next) => {
 };
 const userValidation = (req, res, next) => {
   const { error } = validateUser(req.body);
+  if (error) {
+    res.status(400).json({
+      ValidationError: error.details.map((detail) =>
+        detail.message.replace(/[^a-zA-Z0-9 ]/g, "")
+      ),
+    });
+  } else {
+    next();
+  }
+};
+
+const adminValidation = (req, res, next) => {
+  const { error } = validateAdmin(req.body);
   if (error) {
     res.status(400).json({
       ValidationError: error.details.map((detail) =>
@@ -76,4 +90,5 @@ export {
   messageValidation,
   userValidation,
   loginValidation,
+  adminValidation,
 };
