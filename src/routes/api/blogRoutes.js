@@ -110,13 +110,11 @@ route.post(
  *       required: true
  *     responses:
  *       '200':
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Blog'
- *       '409':
- *         description: Invalid input
+ *         description: Success
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Unauthorized
  *       '500':
  *         description: Internal server error
  *     security:
@@ -135,11 +133,7 @@ route.get("/", BlogController.viewBlogs);
  *     operationId: viewBlogs
  *     responses:
  *       '200':
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Blog'
+ *         description: Success
  *       '500':
  *         description: Internal server error
  */
@@ -161,14 +155,12 @@ route.get("/:id", BlogController.viewSingleBlog);
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *     responses:
  *       '200':
- *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Blog'
+ *         description: Success
+ *       '404':
+ *         description: Not found
  *       '500':
  *         description: Internal server error
  */
@@ -196,10 +188,10 @@ route.delete(
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *     responses:
  *       '200':
- *         description: Successfull operation
+ *         description: Success
  *       '404':
  *         description: Blog with that Id not found
  *       '401':
@@ -234,7 +226,7 @@ route.put(
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *     requestBody:
  *       description: Update blog
  *       content:
@@ -256,13 +248,11 @@ route.put(
  *       required: true
  *     responses:
  *       '200':
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Blog'
- *       '409':
- *         description: Invalid input
+ *         description: Success
+ *       '400':
+ *         description: Bad request
+ *       '401':
+ *         description: Unauthorized
  *       '500':
  *         description: Internal server error
  *     security:

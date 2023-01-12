@@ -1,7 +1,4 @@
-import {
-  userValidation,
-  loginValidation,
-} from "../../middleware/auth/validations";
+import { adminValidation } from "../../middleware/auth/validations";
 import express from "express";
 import { AdminController } from "../../controller/adminController";
 import passport from "passport";
@@ -23,7 +20,7 @@ const route = express.Router();
 route.post(
   "/signup",
   checkAdmin,
-  userValidation,
+  adminValidation,
   passport.authenticate("jwt", { session: false }),
   AdminController.addAdmin
 );
@@ -51,35 +48,18 @@ route.post(
  *                   type: string
  *                   format: email
  *                   example: ngsol@gmail.com
- *                 password:
- *                   type: string
- *                   format: password
- *                   example: andela
  *               required:
  *                 - name
  *                 - email
- *                 - password
  *     responses:
  *       "200":
- *           description: Successful Operation
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   message:
- *                     type: string
- *                     default: "Admin sign up was successfull!!"
+ *           description: Success
+ *       '401':
+ *         description: Unauthorized
+ *       '400':
+ *         description: Bad Request
  *       "409":
  *           description: Conflict
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   message:
- *                     type: string
- *                     default: "Email exists"
  *       '500':
  *         description: Internal server error
  *     security:
@@ -104,16 +84,8 @@ route.get(
  *     responses:
  *       "200":
  *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                   Administrators:
- *                     type: array
- *                     minItems: 2
- *                     items:
- *                       $ref: '#/components/schemas/User'
+ *       '401':
+ *         description: Unauthorized
  *       "500":
  *         description: Internal server error
  *     security:

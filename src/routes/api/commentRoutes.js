@@ -66,18 +66,12 @@ route.post(
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *     responses:
  *       '200':
- *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                  CommentedBlog:
- *                    type: object
- *                    $ref: '#/components/schemas/Blog'
+ *         description: Success
+ *       '401':
+ *         description: Unauthorized (Needs token)
  *       '500':
  *         description: Internal server error
  *     security:
@@ -103,16 +97,10 @@ route.get("/:id/comments", CommentController.viewComments);
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *     responses:
  *       '200':
- *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                $ref: '#/components/schemas/Comment'
+ *         description: Success
  *       '500':
  *         description: Internal server error
  */
@@ -135,7 +123,7 @@ route.get("/:bid/comments/:cid", CommentController.viewSingleComment);
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *       - name: commentId
  *         in: path
  *         description: ID of comment
@@ -143,17 +131,10 @@ route.get("/:bid/comments/:cid", CommentController.viewSingleComment);
  *         schema:
  *           type: string
  *           format: objectId
- *           example: 63a567bc2a672df0a5192bb8
+ *           example: id
  *     responses:
  *       '200':
- *         description: successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 comment:
- *                  $ref: '#/components/schemas/Comment'
+ *         description: Success
  *       '500':
  *         description: Internal server error
  *     security:
@@ -183,7 +164,7 @@ route.delete(
  *          schema:
  *            type: string
  *            format: objectId
- *            example: 63a567bc2a672df0a5192bb8
+ *            example: id
  *        - name: commentId
  *          in: path
  *          description: ID of comment
@@ -191,18 +172,12 @@ route.delete(
  *          schema:
  *            type: string
  *            format: objectId
- *            example: 63a567bc2a672df0a5192bb8
+ *            example: id
  *      responses:
  *        '200':
- *          description: successful operation
- *          content:
- *            application/json:
- *              schema:
- *                type: object
- *                properties:
- *                  message:
- *                    type: string
- *                    default: Comment Deleted
+ *          description: Success
+ *        '401':
+ *         description: Unauthorized
  *        '500':
  *          description: Internal server error
  *      security:

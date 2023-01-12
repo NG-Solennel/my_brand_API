@@ -35,6 +35,17 @@ test("Should have a not found 404", async () => {
   });
   expect(response.statusCode).toBe(404);
 });
+test("Posting a blog to provide 200 ", async () => {
+  const response = await request(app)
+    .post("/api/v1/blogs")
+    .set("Authorization", token)
+    .send({
+      title: "The " + randomNumber + " blog title",
+      content: "Blog content " + randomNumber,
+      image: imgUrl,
+    });
+  expect(response.statusCode).toBe(200);
+});
 
 test("Viewing on blogs should give a 200", async () => {
   const response = await request(app).get("/api/v1/blogs").send();
@@ -48,7 +59,9 @@ test("Viewing on blogs should give json", async () => {
 });
 
 test("Getting a single blog should return 200", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .get("/api/v1/blogs/" + id)
@@ -57,7 +70,9 @@ test("Getting a single blog should return 200", async () => {
 });
 
 test("Should return the json for that blog", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .get("/api/v1/blogs/" + id)
@@ -79,7 +94,9 @@ test("Should return Not found json as the route doesn't exists ", async () => {
 });
 
 test("Viewing comments", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app).post("/api/v1/blogs/").send({
     title: "The first blog title",
@@ -89,7 +106,9 @@ test("Viewing comments", async () => {
   expect(response.statusCode).toBe(401);
 });
 test("This request should provide a 400 as no data is being passed so a validation error occurs", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .put("/api/v1/blogs/" + id)
@@ -98,7 +117,9 @@ test("This request should provide a 400 as no data is being passed so a validati
   expect(response.statusCode).toBe(400);
 });
 test("Commenting should provide 401 as it is lacking the auth token to extract data from", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .post("/api/v1/blogs/" + id + "/comments")
@@ -109,7 +130,9 @@ test("Commenting should provide 401 as it is lacking the auth token to extract d
 });
 
 test("This should return a 200 as it getting comments and requires no data nor authentication", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .get("/api/v1/blogs/" + id + "/comments")
@@ -118,7 +141,9 @@ test("This should return a 200 as it getting comments and requires no data nor a
 });
 
 test("Sending a like should return 401 as the request has authentication token to provide data for the like", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .post("/api/v1/blogs/" + id + "/like")
@@ -126,7 +151,9 @@ test("Sending a like should return 401 as the request has authentication token t
   expect(response.statusCode).toBe(401);
 });
 test("deleting blog should return unauthorized 401 without token", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .delete("/api/v1/blogs/" + id)
@@ -162,18 +189,20 @@ test("return a validation error 400 as email is written wrong", async () => {
   });
   expect(response.statusCode).toBe(400);
 });
-test("Not authorization as the token not provided return 401", async () => {
+test("signup a user should provide 409 as he already exists", async () => {
   const user = await User.findOne();
   const response = await request(app).post("/api/v1/users/signup").send({
     name: "Ngabo solennel",
     email: "ngsolennel@gmail.com",
     password: "andela",
   });
-  expect(response.statusCode).toBe(401);
+  expect(response.statusCode).toBe(409);
 });
 
 test("Posting a blog to provide 500 as testing won't reach cloudinary", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .post("/api/v1/blogs/")
@@ -187,8 +216,6 @@ test("Posting a blog to provide 500 as testing won't reach cloudinary", async ()
 });
 
 test("Posting a blog to provide 500 as testing won't reach cloudinary", async () => {
-  const blog = await Blog.findOne();
-  const id = blog._id;
   const response = await request(app)
     .post("/api/v1/blogs/")
     .send()
@@ -197,7 +224,9 @@ test("Posting a blog to provide 500 as testing won't reach cloudinary", async ()
 });
 
 test("Posting comment with token to provide 200", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .post("/api/v1/blogs/" + id + "/comments")
@@ -216,18 +245,18 @@ test("Getting all users should provide 200", async () => {
   expect(response.statusCode).toBe(200);
 });
 
-test("Should give a 409 saying that user can't sign up because there is a conflict as he already exists", async () => {
-  const user = await User.findOne();
-  const response = await request(app)
-    .post("/api/v1/users/signup")
-    .set("Authorization", token)
-    .send({
-      name: "Ngabo solennel",
-      email: "ngsolennel@gmail.com",
-      password: "andela",
-    });
-  expect(response.statusCode).toBe(409);
-});
+// test("Should give a 409 saying that user can't sign up because there is a conflict as he already exists", async () => {
+//   const user = await User.findOne();
+//   const response = await request(app)
+//     .post("/api/v1/users/signup")
+//     .set("Authorization", token)
+//     .send({
+//       name: "Ngabo solennel",
+//       email: "ngsolennel@gmail.com",
+//       password: "andela",
+//     });
+//   expect(response.statusCode).toBe(409);
+// });
 
 test("Should return a 200 as all data is written right and the authorization token is provided", async () => {
   const response = await request(app)
@@ -242,7 +271,9 @@ test("Should return a 200 as all data is written right and the authorization tok
 });
 
 test("Posting comment with token to provide 200", async () => {
-  const blog = await Blog.findOne({ content: "Blog content 5" });
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .post("/api/v1/blogs/" + id + "/comments")
@@ -254,7 +285,9 @@ test("Posting comment with token to provide 200", async () => {
 });
 
 test("Posting like with token to provide 200", async () => {
-  const blog = await Blog.findOne({ content: "Blog content 5" });
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .post("/api/v1/blogs/" + id + "/like")
@@ -264,7 +297,9 @@ test("Posting like with token to provide 200", async () => {
 });
 
 test("Viewing a single comment with token to provide 200", async () => {
-  const blog = await Blog.findOne({ content: "Blog content 5" });
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const commentId = blog.comments[0]._id;
   const response = await request(app)
@@ -275,7 +310,9 @@ test("Viewing a single comment with token to provide 200", async () => {
 });
 
 test("Deleting a comment", async () => {
-  const blog = await Blog.findOne({ content: "Blog content 5" });
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const commentId = blog.comments[0]._id;
 
@@ -287,7 +324,9 @@ test("Deleting a comment", async () => {
 });
 
 test("Getting a single blog should return 200", async () => {
-  const blog = await Blog.findOne();
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .get("/api/v1/blogs/" + id)
@@ -322,13 +361,35 @@ test("Should return a 200 as all data is written right and the authorization tok
     .send({
       name: "Ngabo Solennel",
       email: "ngsolennel@gmail.com",
-      password: "andela",
     });
   expect(response.statusCode).toBe(409);
 });
+test("Should return a 200 as all data is written right and the authorization token is provided", async () => {
+  const response = await request(app)
+    .post("/api/v1/admin/signup")
+    .set("Authorization", token)
+    .send({
+      name: "Ngabo Solennel",
+      email: "ngsolennel@gmail.com",
+      password: "andela",
+    });
+  expect(response.statusCode).toBe(400);
+});
+test("Should return a 200 as all data is written right and the authorization token is provided", async () => {
+  const response = await request(app)
+    .post("/api/v1/admin/signup")
+    .set("Authorization", token)
+    .send({
+      name: "Ngabo Solennel",
+      email: "ngsol" + randomNumber + "@gmail.com",
+    });
+  expect(response.statusCode).toBe(200);
+});
 
 test("Updating a blog to provide 200 unless testing won't reach cloudinary", async () => {
-  const blog = await Blog.findOne({ content: "Blog content 5" });
+  const blog = await Blog.findOne({
+    title: "The " + randomNumber + " blog title",
+  });
   const id = blog._id;
   const response = await request(app)
     .put("/api/v1/blogs/" + id)
@@ -341,21 +402,8 @@ test("Updating a blog to provide 200 unless testing won't reach cloudinary", asy
   expect(response.statusCode).toBe(200);
 });
 
-test("Posting a blog to provide 200 ", async () => {
-  const response = await request(app)
-    .post("/api/v1/blogs")
-    .set("Authorization", token)
-    .send({
-      title: "The " + randomNumber + " blog title",
-      content: "Blog content " + randomNumber,
-      image: imgUrl,
-    });
-  expect(response.statusCode).toBe(200);
-});
 test("Deleting a blog to provide 200", async () => {
-  const blog = await Blog.findOne({
-    title: "The " + randomNumber + " blog title",
-  });
+  const blog = await Blog.findOne();
   console.log(blog);
   const id = blog._id;
   const rdel = await request(app)
@@ -364,6 +412,8 @@ test("Deleting a blog to provide 200", async () => {
     .send();
   expect(rdel.statusCode).toBe(200);
 });
+
+
 test("Viewing all messages should provide 200", async () => {
   const response = await request(app)
     .get("/api/v1/messages")

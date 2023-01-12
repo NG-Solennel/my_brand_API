@@ -33,6 +33,9 @@ export class BlogController {
   static async viewBlogs(req, res) {
     try {
       const blogs = await BlogServices.viewBlogs();
+      if (blogs.length == 0) {
+        return res.status(200).json({ Message: "No blogs available" });
+      }
       return res.status(200).json({ blogs });
     } catch (error) {
       console.log(error);
@@ -43,6 +46,9 @@ export class BlogController {
   static async viewSingleBlog(req, res) {
     try {
       const blog = await BlogServices.viewSingleBlog(req.params.id);
+      if (blog == null) {
+        return res.status(404).json({ Error: "Blog Not Found!!" });
+      }
       return res.status(200).json({ blog });
     } catch (error) {
       console.log(error);
@@ -72,6 +78,9 @@ export class BlogController {
       };
 
       const response = await BlogServices.updateBlog(req.params.id, data);
+      if (response.data == null) {
+        return res.status(404).json({ Error: "Blog doesn't exist!!" });
+      }
       return res.status(200).json({ UpdatedBlog: response.data });
     } catch (error) {
       console.log(error);
