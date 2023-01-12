@@ -52,7 +52,7 @@ export class MessageController {
   static async deleteMessage(req, res) {
     try {
       await MessageServices.deleteMessage(req.params.id);
-      res.status(200).json({ message: "Message deleted" });
+      res.status(204).json({ message: "Message deleted" });
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: error });

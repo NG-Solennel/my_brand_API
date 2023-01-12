@@ -190,7 +190,7 @@ route.delete(
  *           format: objectId
  *           example: id
  *     responses:
- *       '200':
+ *       '204':
  *         description: Success
  *       '404':
  *         description: Blog with that Id not found

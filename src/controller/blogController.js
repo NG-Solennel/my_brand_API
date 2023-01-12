@@ -59,7 +59,7 @@ export class BlogController {
   static async deleteBlog(req, res) {
     try {
       await BlogServices.deleteBlog(req.params.id);
-      return res.status(200).json({ message: "Blog Deleted" });
+      return res.status(204).json({ message: "Blog Deleted" });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: error });

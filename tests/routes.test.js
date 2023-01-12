@@ -47,6 +47,18 @@ test("Posting a blog to provide 200 ", async () => {
   expect(response.statusCode).toBe(200);
 });
 
+test("Posting a blog to provide 200 ", async () => {
+  const response = await request(app)
+    .post("/api/v1/blogs")
+    .set("Authorization", token)
+    .send({
+      title: "The " + randomNumber + " blog title",
+      content: "Blog content " + randomNumber,
+      image: imgUrl,
+    });
+  expect(response.statusCode).toBe(409);
+});
+
 test("Viewing on blogs should give a 200", async () => {
   const response = await request(app).get("/api/v1/blogs").send();
   expect(response.statusCode).toBe(200);
@@ -245,19 +257,6 @@ test("Getting all users should provide 200", async () => {
   expect(response.statusCode).toBe(200);
 });
 
-// test("Should give a 409 saying that user can't sign up because there is a conflict as he already exists", async () => {
-//   const user = await User.findOne();
-//   const response = await request(app)
-//     .post("/api/v1/users/signup")
-//     .set("Authorization", token)
-//     .send({
-//       name: "Ngabo solennel",
-//       email: "ngsolennel@gmail.com",
-//       password: "andela",
-//     });
-//   expect(response.statusCode).toBe(409);
-// });
-
 test("Should return a 200 as all data is written right and the authorization token is provided", async () => {
   const response = await request(app)
     .post("/api/v1/users/signup")
@@ -320,7 +319,7 @@ test("Deleting a comment", async () => {
     .delete("/api/v1/blogs/" + id + "/comments/" + commentId)
     .send()
     .set("Authorization", token);
-  expect(response.statusCode).toBe(200);
+  expect(response.statusCode).toBe(204);
 });
 
 test("Getting a single blog should return 200", async () => {
@@ -341,7 +340,7 @@ test("Deleting a message should return a 200 as token is provided", async () => 
     .delete("/api/v1/messages/" + id)
     .set("Authorization", token)
     .send();
-  expect(response.statusCode).toBe(200);
+  expect(response.statusCode).toBe(204);
 });
 
 test("Getting a message should return a 200 as token is provided", async () => {
@@ -410,9 +409,8 @@ test("Deleting a blog to provide 200", async () => {
     .delete("/api/v1/blogs/" + id)
     .set("Authorization", token)
     .send();
-  expect(rdel.statusCode).toBe(200);
+  expect(rdel.statusCode).toBe(204);
 });
-
 
 test("Viewing all messages should provide 200", async () => {
   const response = await request(app)

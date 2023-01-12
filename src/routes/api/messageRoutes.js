@@ -178,10 +178,10 @@ route.delete(
  *             format: objectId
  *             example: id
  *       responses:
- *         '200':
+ *         '204':
  *           description: Success
- *       '401':
- *         description: Unauthorized
+ *         '401':
+ *           description: Unauthorized
  *         '500':
  *           description: Internal server error
  *       security:
