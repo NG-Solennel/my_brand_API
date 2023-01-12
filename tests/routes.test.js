@@ -412,6 +412,8 @@ test("Deleting a blog to provide 200", async () => {
     .send();
   expect(rdel.statusCode).toBe(200);
 });
+
+
 test("Viewing all messages should provide 200", async () => {
   const response = await request(app)
     .get("/api/v1/messages")

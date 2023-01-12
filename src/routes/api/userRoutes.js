@@ -77,6 +77,9 @@ route.post("/signup", userValidation, UserController.addUser);
  *           description: Conflict
  *       '500':
  *         description: Internal server error
+ *     security:
+ *       - {}
+ *       - bearerAuth: []
  */
 
 route.post("/login", loginValidation, UserController.login);
