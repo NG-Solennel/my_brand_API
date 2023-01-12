@@ -174,7 +174,7 @@ route.delete(
  *            format: objectId
  *            example: id
  *      responses:
- *        '200':
+ *        '204':
  *          description: Success
  *        '401':
  *         description: Unauthorized
