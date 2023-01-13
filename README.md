@@ -16,7 +16,7 @@ This is an api that is used on personal blog portfolio which will act as an inte
 
 ## API Reference
 
-### API ENDPOINTS
+### API Endpoints
 
 #### Blog
 
@@ -95,9 +95,10 @@ To run this project, you will need to add the following environment variables to
 - [Jest](https://jestjs.io/)
 - [Supertest](https://www.npmjs.com/package/supertest)
 
-### Deployed
+### Deployed With
 
 - [Cyclic](https://www.cyclic.sh/)
+- [Render](https://render.com/)
 
 ## Author
 

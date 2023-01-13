@@ -8,6 +8,7 @@ import passport from "passport";
 import passportSetup from "./middleware/auth/passport";
 import swaggerUI from "swagger-ui-express";
 import specs from "./swagger";
+import cors from "cors";
 
 const app = express();
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
@@ -16,7 +17,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(morgan("dev"));
-
+app.use(cors({ origin: "*" }));
 const port = process.env.PORT || 5000;
 try {
   mongoose.set("strictQuery", false);

@@ -8,6 +8,7 @@ const blogSchema = mongoose.Schema({
   },
   comments: [{ name: String, message: String, email: String, date: Date }],
   likes: { Count: { type: Number, default: 0 }, People: Array },
+  date: Date,
 });
 
 const Blog = mongoose.model("Blog", blogSchema);
