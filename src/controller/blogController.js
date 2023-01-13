@@ -16,6 +16,7 @@ export class BlogController {
           public_id: imgResult.public_id,
           url: imgResult.secure_url,
         },
+        date: new Date(),
       };
 
       const response = await BlogServices.createBlog(data);
@@ -75,6 +76,7 @@ export class BlogController {
         title,
         content,
         image: { public_id: result.public_id, url: result.secure_url },
+        date: new Date(),
       };
 
       const response = await BlogServices.updateBlog(req.params.id, data);
