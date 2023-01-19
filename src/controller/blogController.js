@@ -1,24 +1,18 @@
 import Blog from "../model/Blog";
 import { BlogServices } from "../services/blogService";
 import cloudinary from "../utils/cloudinary";
+import fs from "fs";
 export class BlogController {
   static async createBlog(req, res) {
-    const { title, content, image } = req.body;
+    const { title, content } = req.body;
     try {
-      const imgResult = await cloudinary.uploader.upload(image, {
-        folder: "my_brand_andela",
-      });
-
       const data = {
         title,
         content,
-        image: {
-          public_id: imgResult.public_id,
-          url: imgResult.secure_url,
-        },
+        image: req.file.path,
         date: new Date(),
       };
-
+      console.log(data);
       const response = await BlogServices.createBlog(data);
       if (response.type == "error") {
         return res.status(409).json({ error: response.data });
@@ -68,16 +62,17 @@ export class BlogController {
   }
   static async updateBlog(req, res) {
     try {
-      const { title, content, image } = req.body;
-      const result = await cloudinary.uploader.upload(image, {
-        folder: "my_brand_andela",
-      });
-      let data = {
-        title,
-        content,
-        image: { public_id: result.public_id, url: result.secure_url },
-        date: new Date(),
-      };
+      let data = {};
+      if (req.body.title) {
+        data.title = req.body.title;
+      }
+      if (req.body.content) {
+        data.content = req.body.content;
+      }
+      if (req.file) {
+        data.image = req.file.path;
+        console.log(req.file);
+      }
 
       const response = await BlogServices.updateBlog(req.params.id, data);
       if (response.data == null) {

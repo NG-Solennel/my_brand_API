@@ -20,13 +20,13 @@ This is an api that is used on personal blog portfolio which will act as an inte
 
 #### Blog
 
-| HTTP Request | Endpoint                 | Description                         |
-| :----------- | :----------------------- | :---------------------------------- |
-| `GET`        | `/api/v1/blogs`          | Used to get all the blogs available |
-| `POST`       | `/api/v1/blogs`          | Used to post a new blog             |
-| `GET`        | `/api/v1/blogs/{blogId}` | Used to get a single blog           |
-| `PUT`        | `/api/v1/blogs/{blogId}` | Used to update a blog               |
-| `DELETE`     | `/api/v1/blogs/{blogId}` | Used to delete a blog               |
+| HTTP Request | Endpoint          | Description                         |
+| :----------- | :---------------- | :---------------------------------- |
+| `GET`        | `/blogs`          | Used to get all the blogs available |
+| `POST`       | `/blogs`          | Used to post a new blog             |
+| `GET`        | `/blogs/{blogId}` | Used to get a single blog           |
+| `PUT`        | `/blogs/{blogId}` | Used to update a blog               |
+| `DELETE`     | `/blogs/{blogId}` | Used to delete a blog               |
 
 #### Message
 
@@ -39,18 +39,18 @@ This is an api that is used on personal blog portfolio which will act as an inte
 
 #### Users
 
-| HTTP Request | Endpoint               | Description                       |
-| :----------- | :--------------------- | :-------------------------------- |
-| `GET`        | `/api/v1/users`        | Used to get all the messages sent |
-| `POST`       | `/api/v1/users/signup` | Used to signup a new user         |
-| `POST`       | `/api/v1/users/login`  | Used to login a new user          |
+| HTTP Request | Endpoint        | Description                       |
+| :----------- | :-------------- | :-------------------------------- |
+| `GET`        | `/users`        | Used to get all the messages sent |
+| `POST`       | `/users/signup` | Used to signup a new user         |
+| `POST`       | `/users/login`  | Used to login a new user          |
 
 #### Admin
 
-| HTTP Request | Endpoint               | Description                        |
-| :----------- | :--------------------- | :--------------------------------- |
-| `GET`        | `/api/v1/admin`        | Used to get all the administrators |
-| `POST`       | `/api/v1/admin/signup` | Used to signup an admin            |
+| HTTP Request | Endpoint        | Description                        |
+| :----------- | :-------------- | :--------------------------------- |
+| `GET`        | `/admin`        | Used to get all the administrators |
+| `POST`       | `/admin/signup` | Used to signup an admin            |
 
 ## Installation
 
@@ -97,8 +97,8 @@ To run this project, you will need to add the following environment variables to
 
 ### Deployed With
 
-- [Cyclic](https://www.cyclic.sh/)
-- [Render](https://render.com/)
+- [Cyclic](https://vast-teal-bull-hose.cyclic.app/)
+- [Render](https://renderapi-i55u.onrender.com/)
 
 ## Author
 

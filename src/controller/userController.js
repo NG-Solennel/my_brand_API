@@ -37,9 +37,10 @@ export class UserController {
         return res.status(400).json({ message: "Email or password incorrect" });
       } else if (response.type == "response") {
         res.header("auth-token", response.data);
-        return res
-          .status(200)
-          .json({ name: response.name, token: response.data });
+        return res.status(200).json({
+          name: response.name,
+          token: response.data,
+        });
       }
     } catch (error) {
       console.log(error);

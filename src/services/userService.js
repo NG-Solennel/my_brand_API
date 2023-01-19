@@ -30,10 +30,14 @@ export class UserServices {
         return { type: "Password incorrect" };
       } else {
         const token = jwt.sign(
-          { id: user._id, email: user.email,name: user.name },
+          { id: user._id, email: user.email, name: user.name },
           process.env.TOK_SECRET
         );
-        return { type: "response", data: token, name: user.name };
+        return {
+          type: "response",
+          data: token,
+          name: user.name,
+        };
       }
     }
   }
