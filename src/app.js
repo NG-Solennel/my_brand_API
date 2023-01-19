@@ -24,7 +24,7 @@ try {
   mongoose.connect(process.env.DB_URL_REMOTE, { useNewUrlParser: true });
   console.log("Database connected!!");
 
-  app.use("/api/v1", routes);
+  app.use("", routes);
   app.use("*", (req, res) => {
     res.status(404).json({ message: "Not Found" });
   });

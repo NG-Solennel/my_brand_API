@@ -69,6 +69,7 @@ route.post(
 
 route.get(
   "",
+  checkAdmin,
   passport.authenticate("jwt", { session: false }),
   AdminController.getAdmin
 );

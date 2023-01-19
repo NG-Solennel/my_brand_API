@@ -31,15 +31,34 @@ export class BlogServices {
     return await Blog.deleteOne({ _id: id });
   }
   static async updateBlog(id, data) {
-    await Blog.findOneAndUpdate(
-      { _id: id },
-      {
-        title: data.title,
-        content: data.content,
-        image: data.image,
-        date: data.date,
-      }
-    );
+    if (data.title) {
+      await Blog.findOneAndUpdate(
+        { _id: id },
+        {
+          title: data.title,
+          date: new Date(),
+        }
+      );
+    }
+    if (data.content) {
+      await Blog.findOneAndUpdate(
+        { _id: id },
+        {
+          content: data.content,
+          date: new Date(),
+        }
+      );
+    }
+    if (data.image) {
+      await Blog.findOneAndUpdate(
+        { _id: id },
+        {
+          image: data.image,
+          date: data.date,
+        }
+      );
+    }
+
     const blog = await Blog.findOne({ _id: id });
     return { type: "response", data: blog };
   }

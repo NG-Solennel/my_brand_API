@@ -1,9 +1,12 @@
 import express from "express";
 import { BlogController } from "../../controller/blogController";
 import passport from "passport";
-import { blogValidation } from "../../middleware/auth/validations";
+import {
+  blogValidation,
+  updateValidation,
+} from "../../middleware/auth/validations";
 import checkAdmin from "../../middleware/auth/checkAdmin";
-
+import upload from "../../utils/multer";
 const route = express.Router();
 
 /**
@@ -77,8 +80,9 @@ const route = express.Router();
 route.post(
   "/",
   checkAdmin,
-  blogValidation,
   passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  blogValidation,
   BlogController.createBlog
 );
 /**
@@ -93,7 +97,7 @@ route.post(
  *     requestBody:
  *       description: Create a new blog
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *              type: object
  *              properties:
@@ -105,7 +109,7 @@ route.post(
  *                  example: Blog content should be string of any size
  *                image:
  *                  type: string
- *                  format: dataurl
+ *                  format: binary
  *                  example: data:img:png...
  *       required: true
  *     responses:
@@ -201,18 +205,19 @@ route.delete(
  *       - bearerAuth: []
  */
 
-route.put(
+route.patch(
   "/:id",
   checkAdmin,
-  blogValidation,
   passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  updateValidation,
   BlogController.updateBlog
 );
 
 /**
  * @swagger
  * /blogs/{blogId}:
- *   put:
+ *   patch:
  *     tags:
  *       - Blogs
  *     summary: Update blog
@@ -230,7 +235,7 @@ route.put(
  *     requestBody:
  *       description: Update blog
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *              type: object
  *              properties:
@@ -242,10 +247,9 @@ route.put(
  *                  example: Blog content should be string of any size
  *                image:
  *                  type: string
- *                  format: dataurl
+ *                  format: binary
  *                  example: data:img:png...
- *
- *       required: true
+ *       required: false
  *     responses:
  *       '200':
  *         description: Success
