@@ -30,12 +30,12 @@ This is an api that is used on personal blog portfolio which will act as an inte
 
 #### Message
 
-| HTTP Request | Endpoint                       | Description                       |
-| :----------- | :----------------------------- | :-------------------------------- |
-| `GET`        | `/api/v1/messages`             | Used to get all the messages sent |
-| `POST`       | `/api/v1/messages`             | Used to post a new message        |
-| `GET`        | `/api/v1/messages/{messageId}` | Used to get a single blog         |
-| `DELETE`     | `/api/v1/messages/{messageId}` | Used to delete a message          |
+| HTTP Request | Endpoint                | Description                       |
+| :----------- | :---------------------- | :-------------------------------- |
+| `GET`        | `/messages`             | Used to get all the messages sent |
+| `POST`       | `/messages`             | Used to post a new message        |
+| `GET`        | `/messages/{messageId}` | Used to get a single blog         |
+| `DELETE`     | `/messages/{messageId}` | Used to delete a message          |
 
 #### Users
 
